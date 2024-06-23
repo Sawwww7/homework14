@@ -24,7 +24,7 @@ class Student {
     this.absenceIndex = 0; //кількість пройдених заннять
   }
 
-  giveARating(ratingValue) {
+  giveAEvaluation(ratingValue) {
     //додати оцінку
 
     if (this.rating.length > this.absenceIndexRating) {
@@ -92,8 +92,8 @@ Average Visit: ${this.getAnAverageVisit()}; rating ${this.getAnAverageProgress()
 }
 
 const andrii = new Student("Andrii", "Fedorov", 1989, "javaScript");
-andrii.giveARating(90); // поставити оцінку
-andrii.giveARating(100);
+andrii.giveAEvaluation(90); // поставити оцінку
+andrii.giveAEvaluation(100);
 console.log(`${andrii.rating}`); //показати оцінки
 
 andrii.present(); //додати відвідування був
@@ -143,6 +143,10 @@ class Group {
       this.student.splice(a, 1);
     }
   }
+
+
+
+
 }
 let course = new Group();
 
@@ -154,34 +158,34 @@ const andriiF = new Student("Andrii", "Fedorov", 1989, "javaScript");
 mykola.present();
 mykola.present();
 mykola.absent();
-mykola.giveARating(100);
-mykola.giveARating(70);
-mykola.giveARating(60);
+mykola.giveAEvaluation(100);
+mykola.giveAEvaluation(70);
+mykola.giveAEvaluation(60);
 console.log(`${mykola.rating}`)
 
 andriiF.present();
 andriiF.present();
 andriiF.present();
-andriiF.giveARating(90);
-andriiF.giveARating(70);
-andriiF.giveARating(50);
-andriiF.giveARating(100);
+andriiF.giveAEvaluation(90);
+andriiF.giveAEvaluation(70);
+andriiF.giveAEvaluation(50);
+andriiF.giveAEvaluation(100);
 console.log(`${andriiF.rating}`)
 
 
 mariia.present();
 mariia.present();
 mariia.absent();
-mykola.giveARating(80);
-mykola.giveARating(30);
-mykola.giveARating(40);
+mariia.giveAEvaluation(80);
+mariia.giveAEvaluation(30);
+mariia.giveAEvaluation(40);
 
 alyna.present();
 alyna.present();
 alyna.present();
-mykola.giveARating(90);
-mykola.giveARating(90);
-mykola.giveARating(90);
+alyna.giveAEvaluation(90);
+alyna.giveAEvaluation(90);
+alyna.giveAEvaluation(90);
 
 course.addStudent(mariia);
 course.addStudent(alyna);
@@ -189,5 +193,5 @@ course.addStudent(mykola);
 course.addStudent(andriiF);
 
 console.log(course.student);
-course.removeStudent(andriiF);
+//course.removeStudent(andriiF);
 console.log(course.student);
