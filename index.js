@@ -6,8 +6,6 @@
   (мають оновитися дані про курс), а також отримати всю інформацію про студента.*/
 ///////////////////////////////////////////////////////////////////////////////////
 
-
-
 class Student {
   constructor(studentName, lastName, birthDay, course) {
     this.studentName = studentName; //ім'я
@@ -19,7 +17,7 @@ class Student {
     } else if (this.course1.includes("ReactJS")) {
       this.engage = 38;
     }
-    
+
     this.rating = new Array(this.engage); // оцінки
     this.absenceIndexRating = 0; //кількість поставленних оцінок
     this.absence = new Array(this.engage); // відвідуваність
@@ -42,7 +40,7 @@ class Student {
       this.absenceIndex++;
     }
   }
-  
+
   present() {
     //добавити був на занняті
     if (this.absence.length > this.absenceIndex) {
@@ -124,55 +122,56 @@ andrii.deleteCurse("Java"); //видалити курс
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /*Створити конструктор Група, яка має список студентів і методи для додавання, видалення студентів,
  а також одержання рейтингу студентів за відвідуваністю і успішністю.*/
- //////////////////////////////////////////////////////////////////////
-
+//////////////////////////////////////////////////////////////////////
 
 class Group {
-  constructor(){
-    const mariia = new Student ("Mariia", "Skochyjkovska", 2001, "javaScript")
-    const alyna = new Student ("Mykola", "Ovchinikova", 2000, "javaScript")
-    const mykola = new Student ("Mykola", "Zaitsev", 2006, "javaScript")
-    const andriiF = new Student ("Andrii", "Fedorov", 1989, "javaScript")
-
-    mykola.present();
-    mykola.present();
-    mykola.absent();
-
-    andriiF.present();
-    andriiF.present();
-    andriiF.present();
-
-    mariia.present();
-    mariia.present();
-    mariia.absent();
-
-    alyna.present();
-    alyna.present();
-    alyna.present();
-
-    this.student = [mariia, alyna, mykola, andriiF];
-    console.log(this.student)
+  constructor() { 
+    this.student = [];
+    console.log(this.student);
   }
 
-  addStudent(student){
-    this.student.push(student)
+  addStudent(student) {
+    this.student.push(student);
   }
 
-  removeStudent(stud){
-    debugger
+  removeStudent(stud) {
+    //debugger
     let a = this.student.indexOf(stud);
     if (a < 0) {
       console.log(`you don't have a student: ${stud}`);
     } else {
       this.student.splice(a, 1);
     }
-
   }
 }
-let course = new Group()
+let course = new Group();
 
-const oly=  new Student ("Oly", "Shevchenko", 1998, "javaScript")
-course.addStudent(oly)
-console.log(course.student)
-course.removeStudent("Andrii")
-console.log(course.student)
+const mariia = new Student("Mariia", "Skochyjkovska", 2001, "javaScript");
+const alyna = new Student("Alyna", "Ovchinikova", 2000, "javaScript");
+const mykola = new Student("Mykola", "Zaitsev", 2006, "javaScript");
+const andriiF = new Student("Andrii", "Fedorov", 1989, "javaScript");
+
+mykola.present();
+mykola.present();
+mykola.absent();
+
+andriiF.present();
+andriiF.present();
+andriiF.present();
+
+mariia.present();
+mariia.present();
+mariia.absent();
+
+alyna.present();
+alyna.present();
+alyna.present();
+
+course.addStudent(mariia);
+course.addStudent(alyna);
+course.addStudent(mykola);
+course.addStudent(andriiF);
+
+console.log(course.student);
+course.removeStudent(andriiF);
+console.log(course.student);
