@@ -154,18 +154,34 @@ const andriiF = new Student("Andrii", "Fedorov", 1989, "javaScript");
 mykola.present();
 mykola.present();
 mykola.absent();
+mykola.giveARating(100);
+mykola.giveARating(70);
+mykola.giveARating(60);
+console.log(`${mykola.rating}`)
 
 andriiF.present();
 andriiF.present();
 andriiF.present();
+andriiF.giveARating(90);
+andriiF.giveARating(70);
+andriiF.giveARating(50);
+andriiF.giveARating(100);
+console.log(`${andriiF.rating}`)
+
 
 mariia.present();
 mariia.present();
 mariia.absent();
+mykola.giveARating(80);
+mykola.giveARating(30);
+mykola.giveARating(40);
 
 alyna.present();
 alyna.present();
 alyna.present();
+mykola.giveARating(90);
+mykola.giveARating(90);
+mykola.giveARating(90);
 
 course.addStudent(mariia);
 course.addStudent(alyna);
