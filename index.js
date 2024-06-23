@@ -1,197 +1,229 @@
-/*Вам необхідно створити конструктор Студента, у якого мають бути властивості:
- ім'я, прізвище, рік народження, оцінки, відвідуваність, курс.
- Кількість оцінок і відвіданих занять залежить від курсу, на якому займається студент.
-  Так само у Студента є методи: додати оцінку,  додати відвідування, отримати середню успішність,
-   отримати середнє відвідування, отримати кількість пройдених занять, змінити курс 
-  (мають оновитися дані про курс), а також отримати всю інформацію про студента.*/
-///////////////////////////////////////////////////////////////////////////////////
-
 class Student {
   constructor(studentName, lastName, birthDay, course) {
-    this.studentName = studentName; //ім'я
-    this.lastName = lastName; //прізвище
-    this.birthDay = birthDay; //рік народження
-    this.course1 = [course]; // курс
-    if (this.course1.includes("javaScript")) {
-      this.engage = 18;
-    } else if (this.course1.includes("ReactJS")) {
-      this.engage = 38;
-    }
+      this.studentName = studentName; // ім'я
+      this.lastName = lastName; // прізвище
+      this.birthDay = birthDay; // рік народження
+      this.courses = {}; // курси з рейтингом та відвідуваністю
 
-    this.rating = new Array(this.engage); // оцінки
-    this.absenceIndexRating = 0; //кількість поставленних оцінок
-    this.absence = new Array(this.engage); // відвідуваність
-    this.absenceIndex = 0; //кількість пройдених заннять
+      this.addCourse(course);
   }
 
-  giveAEvaluation(ratingValue) {
-    //додати оцінку
-
-    if (this.rating.length > this.absenceIndexRating) {
-      this.rating[this.absenceIndexRating] = ratingValue;
-      this.absenceIndexRating++;
-    }
+  initializeCourseData(course) {
+      // ініціалізувати рейтинги та відвідуваність курсу
+      let engage;
+      if (course === "javaScript") {
+          engage = 18;
+      } else if (course === "ReactJS") {
+          engage = 38;
+      } else {
+          engage = 0;
+      }
+      this.courses[course] = {
+          engage: engage,
+          ratings: new Array(engage).fill(0),
+          absence: new Array(engage).fill(false),
+          absenceIndexRating: 0,
+          absenceIndex: 0,
+      };
   }
 
-  absent() {
-    //добавити був відсутнім на занняті
-    if (this.absence.length > this.absenceIndex) {
-      this.absence[this.absenceIndex] = false;
-      this.absenceIndex++;
-    }
+  giveAEvaluation(course, ratingValue) {
+      // додати оцінку
+      if (this.courses[course]) {
+          const courseData = this.courses[course];
+          if (courseData.ratings.length > courseData.absenceIndexRating) {
+              courseData.ratings[courseData.absenceIndexRating] = ratingValue;
+              courseData.absenceIndexRating++;
+          }
+      }
   }
 
-  present() {
-    //добавити був на занняті
-    if (this.absence.length > this.absenceIndex) {
-      this.absence[this.absenceIndex] = true;
-      this.absenceIndex++;
-    }
+  absent(course) {
+      // добавити був відсутнім на занятті
+      if (this.courses[course]) {
+          const courseData = this.courses[course];
+          if (courseData.absence.length > courseData.absenceIndex) {
+              courseData.absence[courseData.absenceIndex] = false;
+              courseData.absenceIndex++;
+          }
+      }
   }
 
-  getAnAverageProgress() {
-    //отримати середню успішність
-    const count =
-      this.rating.reduce((acc, num) => acc + num, 0) / this.absenceIndexRating;
-    return count;
-  }
-  getAnAverageVisit() {
-    //отримати середнє відвідування
-    let count = this.absence.filter(Boolean).length / this.absenceIndex;
-    return count.toFixed(2);
+  present(course) {
+      // добавити був на занятті
+      if (this.courses[course]) {
+          const courseData = this.courses[course];
+          if (courseData.absence.length > courseData.absenceIndex) {
+              courseData.absence[courseData.absenceIndex] = true;
+              courseData.absenceIndex++;
+          }
+      }
   }
 
-  changeCourse(course) {
-    //змінити курс
-    this.course1.splice(0, 1, course);
+  getAnAverageProgress(course) {
+      // отримати середню успішність
+      if (this.courses[course]) {
+          const courseData = this.courses[course];
+          if (courseData.absenceIndexRating === 0) return 0;
+          const count = courseData.ratings.reduce((acc, num) => acc + num, 0) / courseData.absenceIndexRating;
+          return count || 0;
+      }
+      return 0;
   }
+
+  getAnAverageVisit(course) {
+      // отримати середнє відвідування
+      if (this.courses[course]) {
+          const courseData = this.courses[course];
+          if (courseData.absenceIndex === 0) return "0.00";
+          let count = courseData.absence.filter(Boolean).length / courseData.absenceIndex;
+          return count.toFixed(2) || "0.00";
+      }
+      return "0.00";
+  }
+
+  changeCourse(oldCourse, newCourse) {
+      // змінити курс (заміна одного курсу на інший)
+      if (this.courses[oldCourse]) {
+          delete this.courses[oldCourse];
+          this.addCourse(newCourse);
+      } else {
+          console.log(`Course ${oldCourse} not found.`);
+      }
+  }
+
   addCourse(course) {
-    //додати курс
-    this.course1.push(course);
+      // додати курс
+      if (!this.courses[course]) {
+          this.initializeCourseData(course);
+      }
   }
-  deleteCurse(course) {
-    //видалити курс
-    console.log(this.course1);
-    let a = this.course1.indexOf(course);
-    if (a < 0) {
-      console.log(`you don't have a course: ${course}`);
-    } else {
-      this.course1.splice(a, 1);
-    }
+
+  deleteCourse(course) {
+      // видалити курс
+      if (this.courses[course]) {
+          delete this.courses[course];
+      } else {
+          console.log(`You don't have a course: ${course}`);
+      }
   }
+
   getAllInformation() {
-    //отримати всю інформацію про студента
-    return `Student name: ${this.studentName}; lastName: ${
-      this.lastName
-    }; Birth day: ${this.birthDay};
-Course: ${this.course1}; Average score: ${this.getAnAverageProgress()};
-Average Visit: ${this.getAnAverageVisit()}; rating ${this.getAnAverageProgress()}; the number of classes completed: ${
-      this.absenceIndex
-    } `;
+      // отримати всю інформацію про студента
+      const courseInfo = Object.keys(this.courses).map(course => {
+          return `Course: ${course}; Average score: ${this.getAnAverageProgress(course)};
+Average Visit: ${this.getAnAverageVisit(course)}; Rating ${this.getAnAverageProgress(course)};
+Number of classes completed: ${this.courses[course].absenceIndex}`;
+      }).join("\n");
+
+      return `Student name: ${this.studentName}; lastName: ${this.lastName}; Birth day: ${this.birthDay};\n${courseInfo}`;
   }
 }
 
-const andrii = new Student("Andrii", "Fedorov", 1989, "javaScript");
-andrii.giveAEvaluation(90); // поставити оцінку
-andrii.giveAEvaluation(100);
-console.log(`${andrii.rating}`); //показати оцінки
-
-andrii.present(); //додати відвідування був
-andrii.absent(); //додати відвідування небув
-andrii.present();
-andrii.present();
-andrii.absent();
-andrii.present();
-
-console.log(andrii.absence); //показати відвідування
-
-console.log(andrii.getAnAverageProgress()); //отримати середню успішність
-console.log(andrii.getAnAverageVisit()); //отримати середнє відвідування
-console.log(andrii.absenceIndex); //отримати кількість пройдених занять
-andrii.changeCourse("ReactJS"); // змінити курс
-console.log(andrii.course1);
-console.log(andrii.getAllInformation()); //отримати всю інформацію про студента
-
-console.log(`${andrii.course1}`); //паказати курс
-andrii.addCourse("Python"); //додати курс
-console.log(andrii.course1[0], andrii.course1[1]);
-andrii.deleteCurse("Java"); //видалити курс
-
-////////////////////////////////////////////////////////////////////////////////////
-/*Додати Студенту можливість навчатися на кількох курсах з можливістю додавання і видалення курсу.*/
-///////////////////////////////////////////////////////////////////////////////////////////////
-/*Створити конструктор Група, яка має список студентів і методи для додавання, видалення студентів,
- а також одержання рейтингу студентів за відвідуваністю і успішністю.*/
-//////////////////////////////////////////////////////////////////////
-
 class Group {
-  constructor() { 
-    this.student = [];
-    console.log(this.student);
+  constructor() {
+      this.students = [];
   }
 
   addStudent(student) {
-    this.student.push(student);
+      this.students.push(student);
   }
 
-  removeStudent(stud) {
-    //debugger
-    let a = this.student.indexOf(stud);
-    if (a < 0) {
-      console.log(`you don't have a student: ${stud}`);
-    } else {
-      this.student.splice(a, 1);
-    }
+  removeStudent(studentName) {
+      const index = this.students.findIndex(
+          student => student.studentName === studentName
+      );
+      if (index < 0) {
+          console.log(`You don't have a student: ${studentName}`);
+      } else {
+          this.students.splice(index, 1);
+      }
   }
 
-
-
-
+  getStudentsRating() {
+      // отримати рейтинг студентів за успішністю
+      return this.students.map(student => {
+          return {
+              studentName: student.studentName,
+              lastName: student.lastName,
+              courses: Object.keys(student.courses).map(course => ({
+                  course,
+                  averageProgress: student.getAnAverageProgress(course),
+                  averageVisit: student.getAnAverageVisit(course)
+              }))
+          };
+      });
+  }
 }
-let course = new Group();
+
+
+const andrii = new Student("Andrii", "Fedorov", 1989, "javaScript");
+andrii.giveAEvaluation("javaScript", 90); // поставити оцінку
+andrii.giveAEvaluation("javaScript", 100);
+console.log(`${andrii.courses["javaScript"].ratings}`); // показати оцінки
+
+andrii.present("javaScript"); // додати відвідування був
+andrii.absent("javaScript"); // додати відвідування небув
+andrii.present("javaScript");
+andrii.present("javaScript");
+andrii.absent("javaScript");
+andrii.present("javaScript");
+
+console.log(andrii.courses["javaScript"].absence); // показати відвідування
+
+console.log(andrii.getAnAverageProgress("javaScript")); // отримати середню успішність
+console.log(andrii.getAnAverageVisit("javaScript")); // отримати середнє відвідування
+console.log(andrii.courses["javaScript"].absenceIndex); // отримати кількість пройдених занять
+
+andrii.changeCourse("javaScript", "ReactJS"); // змінити курс
+console.log(andrii.courses);
+console.log(andrii.getAllInformation()); // отримати всю інформацію про студента
+
+andrii.addCourse("Python"); // додати курс
+console.log(andrii.courses);
+
+const course = new Group();
 
 const mariia = new Student("Mariia", "Skochyjkovska", 2001, "javaScript");
 const alyna = new Student("Alyna", "Ovchinikova", 2000, "javaScript");
 const mykola = new Student("Mykola", "Zaitsev", 2006, "javaScript");
 const andriiF = new Student("Andrii", "Fedorov", 1989, "javaScript");
 
-mykola.present();
-mykola.present();
-mykola.absent();
-mykola.giveAEvaluation(100);
-mykola.giveAEvaluation(70);
-mykola.giveAEvaluation(60);
-console.log(`${mykola.rating}`)
+mykola.present("javaScript");
+mykola.present("javaScript");
+mykola.absent("javaScript");
+mykola.giveAEvaluation("javaScript", 100);
+mykola.giveAEvaluation("javaScript", 70);
+mykola.giveAEvaluation("javaScript", 60);
+console.log(`${mykola.courses["javaScript"].ratings}`);
 
-andriiF.present();
-andriiF.present();
-andriiF.present();
-andriiF.giveAEvaluation(90);
-andriiF.giveAEvaluation(70);
-andriiF.giveAEvaluation(50);
-andriiF.giveAEvaluation(100);
-console.log(`${andriiF.rating}`)
+andriiF.present("javaScript");
+andriiF.present("javaScript");
+andriiF.present("javaScript");
+andriiF.giveAEvaluation("javaScript", 90);
+andriiF.giveAEvaluation("javaScript", 70);
+andriiF.giveAEvaluation("javaScript", 50);
+andriiF.giveAEvaluation("javaScript", 100);
+console.log(`${andriiF.courses["javaScript"].ratings}`);
 
+mariia.present("javaScript");
+mariia.present("javaScript");
+mariia.absent("javaScript");
+mariia.giveAEvaluation("javaScript", 80);
+mariia.giveAEvaluation("javaScript", 30);
+mariia.giveAEvaluation("javaScript", 40);
 
-mariia.present();
-mariia.present();
-mariia.absent();
-mariia.giveAEvaluation(80);
-mariia.giveAEvaluation(30);
-mariia.giveAEvaluation(40);
-
-alyna.present();
-alyna.present();
-alyna.present();
-alyna.giveAEvaluation(90);
-alyna.giveAEvaluation(90);
-alyna.giveAEvaluation(90);
+alyna.present("javaScript");
+alyna.present("javaScript");
+alyna.present("javaScript");
+alyna.giveAEvaluation("javaScript", 90);
+alyna.giveAEvaluation("javaScript", 90);
+alyna.giveAEvaluation("javaScript", 90);
 
 course.addStudent(mariia);
 course.addStudent(alyna);
 course.addStudent(mykola);
 course.addStudent(andriiF);
 
-console.log(course.student);
-//course.removeStudent(andriiF);
-console.log(course.student);
+console.log(course.students);
+console.log(course.getStudentsRating());
