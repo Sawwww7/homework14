@@ -8,7 +8,7 @@
 
 
 
-class Studens {
+class Student {
   constructor(studentName, lastName, birthDay, course) {
     this.studentName = studentName; //ім'я
     this.lastName = lastName; //прізвище
@@ -93,7 +93,7 @@ Average Visit: ${this.getAnAverageVisit()}; rating ${this.getAnAverageProgress()
   }
 }
 
-const andrii = new Studens("Andrii", "Fedorov", 1989, "javaScript");
+const andrii = new Student("Andrii", "Fedorov", 1989, "javaScript");
 andrii.giveARating(90); // поставити оцінку
 andrii.giveARating(100);
 console.log(`${andrii.rating}`); //показати оцінки
@@ -129,10 +129,10 @@ andrii.deleteCurse("Java"); //видалити курс
 
 class Group {
   constructor(){
-    const mariia = new Studens ("Mariia", "Skochyjkovska", 2001, "javaScript")
-    const alyna = new Studens ("Mykola", "Ovchinikova", 2000, "javaScript")
-    const mykola = new Studens ("Mykola", "Zaitsev", 2006, "javaScript")
-    const andriiF = new Studens ("Andrii", "Fedorov", 1989, "javaScript")
+    const mariia = new Student ("Mariia", "Skochyjkovska", 2001, "javaScript")
+    const alyna = new Student ("Mykola", "Ovchinikova", 2000, "javaScript")
+    const mykola = new Student ("Mykola", "Zaitsev", 2006, "javaScript")
+    const andriiF = new Student ("Andrii", "Fedorov", 1989, "javaScript")
 
     mykola.present();
     mykola.present();
@@ -150,8 +150,29 @@ class Group {
     alyna.present();
     alyna.present();
 
-    this.students = [mariia, alyna, mykola, andriiF];
-    console.log( this.students)
+    this.student = [mariia, alyna, mykola, andriiF];
+    console.log(this.student)
+  }
+
+  addStudent(student){
+    this.student.push(student)
+  }
+
+  removeStudent(stud){
+    debugger
+    let a = this.student.indexOf(stud);
+    if (a < 0) {
+      console.log(`you don't have a student: ${stud}`);
+    } else {
+      this.student.splice(a, 1);
+    }
+
   }
 }
 let course = new Group()
+
+const oly=  new Student ("Oly", "Shevchenko", 1998, "javaScript")
+course.addStudent(oly)
+console.log(course.student)
+course.removeStudent("Andrii")
+console.log(course.student)
