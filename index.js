@@ -233,7 +233,7 @@ course.addStudent(mykola);
 course.addStudent(andrii);
 
 console.log(course.students);
- course.removeStudent("Mariia", "Skochyjkovska");
+ //course.removeStudent("Mariia", "Skochyjkovska");
 
 console.log(course.getStudentsProgressRating());
 console.log(course.getStudentsAttendanceRating());
