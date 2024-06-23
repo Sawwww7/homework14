@@ -113,7 +113,7 @@ console.log(andrii.course1);
 console.log(andrii.getAllInformation()); //отримати всю інформацію про студента
 
 console.log(`${andrii.course1}`); //паказати курс
-andrii.addCourse("Payton"); //додати курс
+andrii.addCourse("Python"); //додати курс
 console.log(andrii.course1[0], andrii.course1[1]);
 andrii.deleteCurse("Java"); //видалити курс
 
