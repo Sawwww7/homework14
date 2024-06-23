@@ -93,36 +93,65 @@ Average Visit: ${this.getAnAverageVisit()}; rating ${this.getAnAverageProgress()
   }
 }
 
-const Andrii = new Studens("Andrii", "Fedorov", 1989, "javaScript");
-Andrii.giveARating(90); // поставити оцінку
-Andrii.giveARating(100);
-console.log(`${Andrii.rating}`); //показати оцінки
+const andrii = new Studens("Andrii", "Fedorov", 1989, "javaScript");
+andrii.giveARating(90); // поставити оцінку
+andrii.giveARating(100);
+console.log(`${andrii.rating}`); //показати оцінки
 
-Andrii.present(); //додати відвідування був
-Andrii.absent(); //додати відвідування небув
-Andrii.present();
-Andrii.present();
-Andrii.absent();
-Andrii.present();
+andrii.present(); //додати відвідування був
+andrii.absent(); //додати відвідування небув
+andrii.present();
+andrii.present();
+andrii.absent();
+andrii.present();
 
-console.log(Andrii.absence); //показати відвідування
+console.log(andrii.absence); //показати відвідування
 
-console.log(Andrii.getAnAverageProgress()); //отримати середню успішність
-console.log(Andrii.getAnAverageVisit()); //отримати середнє відвідування
-console.log(Andrii.absenceIndex); //отримати кількість пройдених занять
-Andrii.changeCourse("ReactJS"); // змінити курс
-console.log(Andrii.course1);
-console.log(Andrii.getAllInformation()); //отримати всю інформацію про студента
+console.log(andrii.getAnAverageProgress()); //отримати середню успішність
+console.log(andrii.getAnAverageVisit()); //отримати середнє відвідування
+console.log(andrii.absenceIndex); //отримати кількість пройдених занять
+andrii.changeCourse("ReactJS"); // змінити курс
+console.log(andrii.course1);
+console.log(andrii.getAllInformation()); //отримати всю інформацію про студента
 
-console.log(`${Andrii.course1}`); //паказати курс
-Andrii.addCourse("Payton"); //додати курс
-console.log(Andrii.course1[0], Andrii.course1[1]);
-Andrii.deleteCurse("Java"); //видалити курс
+console.log(`${andrii.course1}`); //паказати курс
+andrii.addCourse("Payton"); //додати курс
+console.log(andrii.course1[0], andrii.course1[1]);
+andrii.deleteCurse("Java"); //видалити курс
 
 ////////////////////////////////////////////////////////////////////////////////////
 /*Додати Студенту можливість навчатися на кількох курсах з можливістю додавання і видалення курсу.*/
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /*Створити конструктор Група, яка має список студентів і методи для додавання, видалення студентів,
  а також одержання рейтингу студентів за відвідуваністю і успішністю.*/
+ //////////////////////////////////////////////////////////////////////
 
 
+class Group {
+  constructor(){
+    const mariia = new Studens ("Mariia", "Skochyjkovska", 2001, "javaScript")
+    const alyna = new Studens ("Mykola", "Ovchinikova", 2000, "javaScript")
+    const mykola = new Studens ("Mykola", "Zaitsev", 2006, "javaScript")
+    const andriiF = new Studens ("Andrii", "Fedorov", 1989, "javaScript")
+
+    mykola.present();
+    mykola.present();
+    mykola.absent();
+
+    andriiF.present();
+    andriiF.present();
+    andriiF.present();
+
+    mariia.present();
+    mariia.present();
+    mariia.absent();
+
+    alyna.present();
+    alyna.present();
+    alyna.present();
+
+    this.students = [mariia, alyna, mykola, andriiF];
+    console.log( this.students)
+  }
+}
+let course = new Group()
