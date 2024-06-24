@@ -270,13 +270,13 @@ console.log(course.students);
 
 console.log(
   course.getStudentsProgressRating()
-);                                                 /*На 1-му місці по успішності студент: Alyna Ovchinikova з рейтингом 90
+); /*На 1-му місці по успішності студент: Alyna Ovchinikova з рейтингом 90
                                                      На 2-му місці по успішності студент: Mykola Zaitsev з рейтингом 80
                                                      На 3-му місці по успішності студент: Andrii Fedorov з рейтингом 77.5
                                                      На 4-му місці по успішності студент: Mariia Skochyjkovska з рейтингом 50*/
 console.log(
   course.getStudentsAttendanceRating()
-);                                                 /*На 1-му місці по відвідуваності студент: Alyna Ovchinikova з відвідуваністю 1.00
+); /*На 1-му місці по відвідуваності студент: Alyna Ovchinikova з відвідуваністю 1.00
                                                      На 2-му місці по відвідуваності студент: Andrii Fedorov з відвідуваністю 1.00
                                                      На 3-му місці по відвідуваності студент: Mariia Skochyjkovska з відвідуваністю 0.67
                                                      На 4-му місці по відвідуваності студент: Mykola Zaitsev з відвідуваністю 0.67*/
@@ -285,22 +285,23 @@ console.log(
 //andrii.deleteCourse("ReactJS")                //видалити курс
 //andrii.deleteCourse("javaScript")
 andrii.addCourse("ReactJS"); //додати курс
-andrii.addCourse("TypeScript")
+andrii.addCourse("TypeScript");
 console.log(andrii.courses); //
 andrii.present("ReactJS");
 andrii.giveAEvaluation("ReactJS", 90);
 
- 
-
 console.log(
   andrii.getAllInformation()
-);                                       /*Student name: Andrii; lastName: Fedorov; Birth day: 1989;
+); /*Student name: Andrii; lastName: Fedorov; Birth day: 1989;
                                            Course: javaScript; Average score: 77.5;
                                            Average Visit: 1.00; Rating 77.5;
                                            Number of classes completed: 3
                                            Course: ReactJS; Average score: 90;
                                            Average Visit: 1.00; Rating 90;
-                                           Number of classes completed: 1*/
+                                           Number of classes completed: 1
+                                           Course: TypeScript; Average score: 0;
+                                           Average Visit: 0.00; Rating 0;
+                                           Number of classes completed: 0*/
 
 ///////////////////////////////////////////////////////////////////////////////////
 /*Вам необхідно створити конструктор Студента, у якого мають бути властивості:
