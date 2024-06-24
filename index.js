@@ -285,9 +285,12 @@ console.log(
 //andrii.deleteCourse("ReactJS")                //видалити курс
 //andrii.deleteCourse("javaScript")
 andrii.addCourse("ReactJS"); //додати курс
-//andrii.addCourse("TypeScript")
+andrii.addCourse("TypeScript")
+console.log(andrii.courses); //
 andrii.present("ReactJS");
 andrii.giveAEvaluation("ReactJS", 90);
+
+ 
 
 console.log(
   andrii.getAllInformation()
